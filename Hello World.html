@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("button.show").click(function () {
+          $("p").show();
+        });
+
+        $("button.hide").click(function () {
+          $("p").hide();
+        });
+      });
+    </script>
+
+    <title>Learn Luan</title>
+  </head>
+  <body>
+    <form action="#">
+      Nome: <input type="text" id="name" size="20" name="name" /><br />
+      Idade: <input type="text" id="age" size="21" name="age" /><br />
+      <input type="submit" value="Submit with HTML only" />
+
+      
+    </form>
+
+    <p class="message"></p>
+    <p class="message2"></p>
+
+    <button class="hide">Hide Message</button>
+    <button class="show">Show Message</button>
+
+    <button onclick="myFunction()">Submit with pure JS</button>
+
+    </br>
+
+    <button onclick="submitWithJQuerySerialize()">Submit with JQuery Serialize</button>
+    </br>
+    <button onclick="SubmitWithJQuery()">Submit with JQuery</button>
+    </br>
+
+    <script>
+      function myFunction() {
+        var name = document.getElementById("name").value;
+        var age = document.getElementById("age").value;
+        submitOK = "true";
+
+        if (name.length > 10) {
+          alert("The name may have no more than 10 characters");
+          submitOK = "false";
+        }
+
+        if (isNaN(age) || age < 1 || age > 100) {
+          alert("The age must be a number between 1 and 100");
+          submitOK = "false";
+        }
+
+        if (submitOK == "false") {
+          return false;
+        }
+
+        alert("Variaveis:" + name + " " + age);
+      }
+
+      function submitWithJQuerySerialize() {
+        let formulario = $('form').serialize(); 
+        console.log('formulario: ', formulario);
+      }
+
+      function SubmitWithJQuery() {
+        var name = $("#name").val();
+        var age = $("#age").val();
+        submitOK = "true";
+
+        if (name.length > 10) {
+          $('.message').text('The name may have no more than 10 characters');
+          submitOK = "false";
+        }
+
+        if (isNaN(age) || age < 1 || age > 100) {
+          $('.message2').text('The age must be a number between 1 and 100');
+          submitOK = "false";
+        }
+
+        if (submitOK == "false") {
+          return false;
+        }
+
+        $('.message').text('Variaveis:' + name + ' ' + age);
+      }
+    </script>
+    
+  </body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>validate</title>
+  </head>
+  <body>
+    <form action="#">
+      <label for="name">Full Name:</label>
+      <input id="name" name="name"/>
+      <h2 id="resultName"></h2>      <br />
+
+      <label for="age">Age:</label>
+      <input id="age" name="age"/>
+      <h2 id="resultAge"></h2>      <br />
+
+      <br />
+      <label for="email">Email:</label>
+      <input id="email" name="email" />
+      <h2 id="resultEmail"></h2>
+    </form>
+
+    <button id="btnSubmit" onclick="SubmitWithJQuery()" disabled>Submit</button>
+
+    <script>
+      //Validation Begin
+      function regexName(name) {
+        const re = /([a-zA-Z]{3,30}\s*)+/;
+        return re.test(name);
+      }
+      function validateName() {
+        const result = $("#resultName");
+        const name = $("#name").val();
+        result.text("");
+
+        if (regexName(name)) {
+          result.text(name + " is valid :)");
+          result.css("color", "green");
+          $("#btnSubmit").prop("disabled",false);
+          
+          return true;
+        } else {
+          result.text(name + " is not valid :(");
+          result.css("color", "red");
+          $("#btnSubmit").prop("disabled",true);
+          return false;
+        }
+      }
+
+      function regexAge(age) {
+        const re = /^([1-9]|[1-9][0-9]|[1-1][0-9][0-9])$/;
+        return re.test(age);
+      }
+      function validateAge() {
+        const result = $("#resultAge");
+        const age = $("#age").val();
+        result.text("");
+
+        if (regexAge(age)) {
+          result.text(age + " is valid :)");
+          result.css("color", "green");
+          $("#btnSubmit").prop("disabled",false);
+
+          return true;
+        } else {
+          result.text(age + " is not valid :(");
+          result.css("color", "red");
+          $("#btnSubmit").prop("disabled",true);
+
+          return false;
+        }
+      }
+
+      function regexEmail(email) {
+        const re =
+          /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      }
+      function validateEmail() {
+        const result = $("#resultEmail");
+        const email = $("#email").val();
+        result.text("");
+
+        if (regexEmail(email)) {
+          result.text(email + " is valid :)");
+          result.css("color", "green");
+          $("#btnSubmit").prop("disabled",false);
+          return true;
+        } else {
+          result.text(email + " is not valid :(");
+          result.css("color", "red");
+          $("#btnSubmit").prop("disabled",true);
+          return false;
+        }
+      }
+      //Validation END
+
+      //SUBMIT VALIDATION BEGIN
+      function validateALL(){
+        const validateNameResult = validateName();
+        const validateAgeResult = validateAge();
+        const validateEmailResult = validateEmail();
+
+        $("#btnSubmit").prop("disabled",true);
+        if (validateNameResult && validateAgeResult && validateEmailResult) {
+          $("#btnSubmit").prop("disabled",false);
+        }
+      }
+
+      $("#name").on("input", validateALL);
+      $("#age").on("input", validateALL);
+      $("#email").on("input", validateALL);
+      //SUBMIT VALIDATION END
+
+    </script>
+  </body>
+</html>

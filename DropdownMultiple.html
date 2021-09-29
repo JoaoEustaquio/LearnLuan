@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Multiple Dropdown</title>
+
+    <script>
+      $(document).ready(function () {
+        var checkList = document.getElementById("list1");
+        checkList.getElementsByClassName("anchor")[0].onclick = function (evt) {
+          if (checkList.classList.contains("visible"))
+            checkList.classList.remove("visible");
+          else checkList.classList.add("visible");
+        };
+      });
+
+      function validateCheckbox(event) {
+        const result = $("#checkboxMessage");
+        event.preventDefault();
+        let form = $("#checkbox")[0];
+
+        const checkboxes = [];
+
+        for (var i = 0; i < form.elements.length; i++) {
+          const element = form.elements[i];
+          checkboxes.push(element.checked);
+        }
+
+        const findCheckbox = checkboxes.find(function (checkbox) {
+          if (checkbox === true) {
+            return true;
+          }
+          return false;
+        });
+
+        result.text("");
+
+        if (findCheckbox !== true) {
+          result.text("Você deve selecionar no mínimo 1 campo.");
+          result.css("color", "red");
+          return false;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <form id="checkbox">
+      <div id="list1" class="dropdown-check-list" tabindex="100">
+        <h3>Escolha as redes sociais:</h3>
+        <span class="anchor">Select Social Network</span>
+        <ul class="items">
+          <li><input name="facebook" type="checkbox" />Facebook</li>
+          <li><input name="instagram" type="checkbox" />Instagram</li>
+          <li><input name="linkedin" type="checkbox" />Linkedin</li>
+          <li><input name="twitter" type="checkbox" />Twitter</li>
+          <li><input name="devianart" type="checkbox" />DevianArt</li>
+          <li><input name="snapchat" type="checkbox" />Snapchat</li>
+          <li><input name="curioscat" type="checkbox" />Curios Cat</li>
+          <li><input name="reddit" type="checkbox" />Reddit</li>
+          <li><input name="pinterest" type="checkbox" />Pinterest</li>
+          <li><input name="github" type="checkbox" />Github</li>
+          <li><input name="myspace" type="checkbox" />My Space</li>
+          <li><input name="orkut" type="checkbox" />Orkut</li>
+          <li><input name="stackoverflow" type="checkbox" />Stackover Flow</li>
+        </ul>
+
+        <br />
+        <input
+          type="submit"
+          name="email_submit"
+          value="submit"
+          onclick="validateCheckbox(event)"
+        />
+      </div>
+
+      <h2 id="checkboxMessage"></h2>
+      <br />
+    </form>
+
+    <style>
+      .dropdown-check-list {
+        display: inline-block;
+      }
+
+      .dropdown-check-list .anchor {
+        position: relative;
+        cursor: pointer;
+        display: inline-block;
+        padding: 5px 50px 5px 10px;
+        border: 1px solid #ccc;
+      }
+
+      .dropdown-check-list .anchor:after {
+        position: absolute;
+        content: "";
+        border-left: 2px solid black;
+        border-top: 2px solid black;
+        padding: 5px;
+        right: 10px;
+        top: 20%;
+        -moz-transform: rotate(-135deg);
+        -ms-transform: rotate(-135deg);
+        -o-transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+        transform: rotate(-135deg);
+      }
+
+      .dropdown-check-list .anchor:active:after {
+        right: 8px;
+        top: 21%;
+      }
+
+      .dropdown-check-list ul.items {
+        padding: 2px;
+        display: none;
+        margin: 0;
+        border: 1px solid #ccc;
+        border-top: none;
+      }
+
+      .dropdown-check-list ul.items li {
+        list-style: none;
+      }
+
+      .dropdown-check-list.visible .anchor {
+        color: #0094ff;
+      }
+
+      .dropdown-check-list.visible .items {
+        display: block;
+      }
+    </style>
+  </body>
+</html>
